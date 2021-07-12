@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Navigation Media</title>
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
+    <script src="./peer.js"></script>
+</head>
+<body>
+<h1>Navigation Media Twist</h1>
+<button id="create-video-window">Show Video</button>
+<div id="video-grid">
+</div>
+<script>
+const roomid = 'FirstRoom';
+let MyvideoStream;
+let peer = new Peer(undefined,{
+    path: '/peerjs',
+    host: '/',
+    port: '3000'
+});
+let video_grid = document.getElementById('video-grid');
+// Show Video on Button Click
+document.getElementById("create-video-window").addEventListener('click',function(){
+
+});
+navigator.mediaDevices.getUserMedia({
+    video:true,
+    audio:false
+}).then((res)=>{
+    MyvideoStream = res;
+    let newvideo= document.createElement('video');
+    addnewvideo_window(newvideo, MyvideoStream);
+    // Answering call peer
+    peer.on('call',call => {
+       call.answer(MyvideoStream);
+       const video = document.createElement("video");
+       call.on('stream', RemoteVideStream => {
+           addnewvideo_window(video,RemoteVideStream)
+       });
+    });
+}).catch(e => console.log(e));
+
+
+const socket = io('http://localhost:3000');
+
+//peer
+peer.on('open',id => {
+    setTimeout(()=>{
+        socket.emit('join-room',roomid,id);
+    },3000);
+})
+
+// Create Grid to show video
+
+
+socket.on('user-connect',(userid)=>{
+    console.log("Launching peer call");
+    const call = peer.call(userid,MyvideoStream);
+    const remote_video= document.createElement('video');
+    call.on('stream',RemoteVideoStream => {
+        console.log('Launching stream function: '+RemoteVideoStream);
+        addnewvideo_window(remote_video,RemoteVideoStream);
+    });
+});
+
+const addnewvideo_window = (element, stream) => {
+    element.srcObject = stream;
+    element.addEventListener('loadedmetadata',() => {
+        element.play();
+        video_grid.append(element);
+    });
+};
+</script>
+<style>
+#video-grid{
+	display:flex;
+}
+#video-grid video{
+	width:200px;
+	height:200px;
+}
+</style>
+</body>
+</html>

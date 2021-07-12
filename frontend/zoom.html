@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Navigation Media</title>
+    <script src="js/socket-client.js"></script>
+    <script src="js/peer.js"></script>
+    <link rel="stylesheet" href="zoom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<nav>
+    <h3>Zoom / Gmeet Clone</h3>
+</nav>
+<main>
+    <div id="roombox">
+        <span>Room Id: <span id="current_roomid">Random</span></span>
+        <div>
+            <div class="video-grid">
+                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+            </div>
+            <br>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="controls">
+            <div id="left-controls">
+                <div>
+                    <i class="fas fa-microphone"></i>
+                    <span>Mute</span>
+                </div>
+                <div>
+                    <i class="fas fa-video"></i>
+                    <span>Stop Video</span>
+                </div>
+            </div>
+            <div id="mid-controls">
+                <div>
+                    <i class="fas fa-phone-slash"></i>
+                    <span>Leave Room</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="chatbox">
+        <div id="chatnav">
+            Room Chats:
+        </div>
+        <div id="Chatmsg">
+
+        </div>
+        <div id="msg_box">
+            <input placeholder="Enter msg" type="text">
+            <button type="button"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</main>
+<!--<button id="create-video-window">Show Video</button>-->
+<script>
+/*const roomid = 'FirstRoom';
+let MyvideoStream;
+let peer = new Peer(undefined,{
+    path: '/peerjs',
+    host: '/',
+    port: '3000'
+});
+let video_grid = document.getElementById('video-grid');
+// Show Video on Button Click
+document.getElementById("create-video-window").addEventListener('click',function(){
+
+});
+navigator.mediaDevices.getUserMedia({
+    video:true,
+    audio:false
+}).then((res)=>{
+    MyvideoStream = res;
+    let newvideo= document.createElement('video');
+    addnewvideo_window(newvideo, MyvideoStream);
+    // Answering call peer
+    peer.on('call',call => {
+       call.answer(MyvideoStream);
+       const video = document.createElement("video");
+       call.on('stream', RemoteVideStream => {
+           addnewvideo_window(video,RemoteVideStream)
+       });
+    });
+}).catch(e => console.log(e));
+
+
+const socket = io('http://localhost:3000');
+
+//peer
+peer.on('open',id => {
+    setTimeout(()=>{
+        socket.emit('join-room',roomid,id);
+    },3000);
+})
+
+// Create Grid to show video
+
+
+socket.on('user-connect',(userid)=>{
+    console.log("Launching peer call");
+    const call = peer.call(userid,MyvideoStream);
+    const remote_video= document.createElement('video');
+    call.on('stream',RemoteVideoStream => {
+        console.log('Launching stream function: '+RemoteVideoStream);
+        addnewvideo_window(remote_video,RemoteVideoStream);
+    });
+});
+
+const addnewvideo_window = (element, stream) => {
+    element.srcObject = stream;
+    element.addEventListener('loadedmetadata',() => {
+        element.play();
+        video_grid.append(element);
+    });
+};*/
+</script>
+</body>
+</html>

@@ -9,5 +9,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="socket.io" level="application" />
+    <orderEntry type="library" name="8dced68980" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
   </component>
 </module>

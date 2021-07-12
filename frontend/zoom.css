@@ -1,0 +1,120 @@
+*{
+    margin:0;
+    padding:0;
+    color:white;
+}
+body{
+    min-width: 967px;
+}
+#current_roomid{
+    letter-spacing: 1px;
+}
+nav{
+    position: absolute;
+    top:20px;
+    left:20px
+}
+#roombox{
+    height: 90vh;
+    width: 80vw;
+    overflow: hidden;
+    background: #181717;
+}
+#roombox > div{
+    margin-top:2.5em;
+    margin-right: 1em;
+    max-height: 100%;
+}
+#roombox > span{
+    float: right;
+    margin-top:1em;
+    margin-right: 2em;
+}
+.video-grid{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.video-grid img{
+    width:350px;
+    height:200px;
+    padding:10px;
+}
+#footer{
+    width: 80vw;
+    height: 10vh;
+    background: rgba(31, 30, 30, 0.93);
+    font-size: 1.5em;
+    border-right: 1px solid black;
+}
+#footer #controls{
+    padding-top:18px;
+    display: flex;
+    justify-content: center;
+}
+#footer #left-controls, #footer #mid-controls{
+    display: flex;
+}
+#footer #left-controls span,#footer #mid-controls span{
+    font-size: 15px;
+    margin-top:4px
+}
+#footer #mid-controls i{
+    color:orangered;
+}
+#left-controls div, #mid-controls div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1.5em;
+    cursor: pointer;
+    transition: transform 300ms;
+}
+#left-controls div:hover,#mid-controls div:hover{
+    transform: scale(1.14);
+}
+#chatbox{
+    background: #1f1e1e;
+    width: 20vw;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top:0px;
+}
+#chatnav{
+    padding:1em;
+}
+#msg_box{
+    position: fixed;
+    bottom: 0;
+    color:black;
+    display: flex;
+    width: inherit;
+}
+#msg_box > input{
+    color:floralwhite;
+    padding:4px;
+    flex:0.9;
+    width: 100%;
+    background: transparent;
+    margin-bottom: 4px;
+}
+#msg_box > input:focus{
+    outline: none;
+}
+#msg_box button{
+    font-weight: 600;
+    flex: 0.1;
+    margin-bottom: 4px;
+    background: white;
+    cursor: pointer;
+    transition: transform 200ms ease-in-out;
+}
+#msg_box button:hover{
+    transform: scale(1.14);
+}
+#msg_box button i {
+    color:black
+}

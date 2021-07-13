@@ -10,56 +10,89 @@
 </head>
 <body>
 <nav>
-    <h3>Zoom / Gmeet Clone</h3>
+    <h1>Zoom / Gmeet Clone</h1>
 </nav>
 <main>
-    <div id="roombox">
-        <span>Room Id: <span id="current_roomid">Random</span></span>
-        <div>
-            <div class="video-grid">
-                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-            </div>
-            <br>
+    <div id="welcome_view">
+        <div id="time">
+            <span>12:35 AM. Tuesday July 13</span>
         </div>
-    </div>
-    <div id="footer">
-        <div id="controls">
-            <div id="left-controls">
-                <div>
-                    <i class="fas fa-microphone"></i>
-                    <span>Mute</span>
+        <br><br><br><br><br><br><br><br><br><br><br>
+        <div id="two_grid">
+            <div id="welcome_desc">
+                <span class="jumbotron">Premium video meetings.<br>
+                Now free for everyone.</span>
+                    <br><br>
+                    <span class="jumbotron_desc">
+                    We re-engineered the service we built for secure business<br>
+                    meetings, Google Meet, to make it free and available for all.
+                </span>
+                <br><br><br>
+                <div id="welcome_room_buttons">
+                    <button type="button" id="create_room"><i class="fas fa-video"></i>&nbsp;&nbsp;Create Room</button>
+                    <button type="button" id="join_room"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Join Room</button>
                 </div>
-                <div>
-                    <i class="fas fa-video"></i>
-                    <span>Stop Video</span>
-                </div>
+                <br><br>
+                <hr>
             </div>
-            <div id="mid-controls">
-                <div>
-                    <i class="fas fa-phone-slash"></i>
-                    <span>Leave Room</span>
-                </div>
+            <div id="welcome_img">
+                <img src="meet.svg" alt="meet">
+                <br><br>
+                <h3>Get a link you can share</h3>
+                <div>Click <strong>New meeting</strong> to get a link you can send to<br>
+                    people you want to meet with</div>
             </div>
         </div>
     </div>
-    <div id="chatbox">
-        <div id="chatnav">
-            Room Chats:
+    <div id="meeting_view">
+        <div id="roombox">
+            <span>Room Id: <span id="current_roomid">Random</span></span>
+            <div>
+                <div class="video-grid">
+                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                </div>
+                <br>
+            </div>
         </div>
-        <div id="Chatmsg">
+        <div id="footer">
+            <div id="controls">
+                <div id="left-controls">
+                    <div>
+                        <i class="fas fa-microphone"></i>
+                        <span>Mute</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-video"></i>
+                        <span>Stop Video</span>
+                    </div>
+                </div>
+                <div id="mid-controls">
+                    <div>
+                        <i class="fas fa-phone-slash"></i>
+                        <span>Leave Room</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="chatbox">
+            <div id="chatnav">
+                Room Chats:
+            </div>
+            <div id="Chatmsg">
 
-        </div>
-        <div id="msg_box">
-            <input placeholder="Enter msg" type="text">
-            <button type="button"><i class="fas fa-paper-plane"></i></button>
+            </div>
+            <div id="msg_box">
+                <input placeholder="Enter msg" type="text">
+                <button type="button"><i class="fas fa-paper-plane"></i></button>
+            </div>
         </div>
     </div>
 </main>

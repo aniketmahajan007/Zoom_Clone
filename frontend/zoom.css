@@ -1,6 +1,9 @@
 *{
     margin:0;
     padding:0;
+}
+#meeting_view{
+    display: none;
     color:white;
 }
 body{
@@ -12,7 +15,8 @@ body{
 nav{
     position: absolute;
     top:20px;
-    left:20px
+    left:20px;
+    margin-top:10px
 }
 #roombox{
     height: 90vh;
@@ -117,4 +121,49 @@ nav{
 }
 #msg_box button i {
     color:black
+}
+
+/* Welcome View */
+#welcome_view{
+    padding:2em;
+}
+#welcome_view #time{
+    font-size: 1.5em;
+    float: right;
+}
+.jumbotron{
+    font-size: 50px;
+}
+.jumbotron_desc{
+    font-size: 1.2em;
+    color:gray;
+}
+#welcome_view #two_grid{
+    display: flex;
+    justify-content: space-evenly;
+}
+#welcome_view #welcome_img{
+    text-align: center;
+}
+#welcome_room_buttons #create_room,#welcome_room_buttons #join_room{
+    padding: 10px;
+    font-size: 1.05em;
+    color: white;
+    border-radius: 10px;
+    background: #1a73e8;
+}
+#join_room{
+    margin-left: 1em;
+}
+@media only screen and (max-width: 960px) {
+    #welcome_view #welcome_desc{
+        text-align: center;
+    }
+    #welcome_view #two_grid{
+        flex-direction: column;
+        justify-content: normal;
+    }
+    #welcome_view #welcome_img{
+        margin-top:2em;
+    }
 }

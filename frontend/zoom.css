@@ -39,8 +39,9 @@ nav{
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    height: 80vh;
 }
-.video-grid img{
+.video-grid video{
     width:350px;
     height:200px;
     padding:10px;
@@ -151,6 +152,7 @@ nav{
     color: white;
     border-radius: 10px;
     background: #1a73e8;
+    cursor: pointer;
 }
 #join_room{
     margin-left: 1em;

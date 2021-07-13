@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-<nav>
-    <h1>Zoom / Gmeet Clone</h1>
+<nav id="app_title_nav">
+    <h1 id="app_title">Zoom / Gmeet Clone</h1>
 </nav>
 <main>
     <div id="welcome_view">
         <div id="time">
-            <span>12:35 AM. Tuesday July 13</span>
+            <span id="cur_time_">12:35 AM. Tuesday July 13</span>
         </div>
         <br><br><br><br><br><br><br><br><br><br><br>
         <div id="two_grid">
@@ -48,16 +48,8 @@
         <div id="roombox">
             <span>Room Id: <span id="current_roomid">Random</span></span>
             <div>
-                <div class="video-grid">
-                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
-                    <img src="https://assets.zoom.us/generic-images/misc/video-thumbnails/meetings-1.png">
+                <div class="video-grid" id="video-grid">
+
                 </div>
                 <br>
             </div>
@@ -65,17 +57,17 @@
         <div id="footer">
             <div id="controls">
                 <div id="left-controls">
-                    <div>
+                    <div id="mute_control">
                         <i class="fas fa-microphone"></i>
                         <span>Mute</span>
                     </div>
-                    <div>
+                    <div id="video_control">
                         <i class="fas fa-video"></i>
-                        <span>Stop Video</span>
+                        <span>Hide Video</span>
                     </div>
                 </div>
                 <div id="mid-controls">
-                    <div>
+                    <div id="leave_room_control">
                         <i class="fas fa-phone-slash"></i>
                         <span>Leave Room</span>
                     </div>
@@ -96,67 +88,101 @@
         </div>
     </div>
 </main>
-<!--<button id="create-video-window">Show Video</button>-->
 <script>
-/*const roomid = 'FirstRoom';
-let MyvideoStream;
-let peer = new Peer(undefined,{
-    path: '/peerjs',
-    host: '/',
-    port: '3000'
-});
-let video_grid = document.getElementById('video-grid');
-// Show Video on Button Click
-document.getElementById("create-video-window").addEventListener('click',function(){
-
-});
-navigator.mediaDevices.getUserMedia({
-    video:true,
-    audio:false
-}).then((res)=>{
-    MyvideoStream = res;
-    let newvideo= document.createElement('video');
-    addnewvideo_window(newvideo, MyvideoStream);
-    // Answering call peer
-    peer.on('call',call => {
-       call.answer(MyvideoStream);
-       const video = document.createElement("video");
-       call.on('stream', RemoteVideStream => {
-           addnewvideo_window(video,RemoteVideStream)
-       });
+    // Global Values
+    let roomid="";
+    let MyvideoStream;
+    let peer = new Peer(undefined,{
+        path: '/peerjs',
+        host: '/',
+        port: '3000'
     });
-}).catch(e => console.log(e));
+    let video_grid = document.getElementById('video-grid');
+    let video_option = false;
+    let audio_option = false;
+    const addnewvideo_window = (element, stream) => {
+        element.srcObject = stream;
+        element.addEventListener('loadedmetadata',() => {
+            element.play();
+            video_grid.append(element);
+        });
+    };
+</script>
+<script src="./js/update_time.js"></script>
+<script src="./js/bottom_controls.js"></script>
+<script>
+    // Socket Connection Initialisation
+    const socket = io('http://localhost:3000');
 
-
-const socket = io('http://localhost:3000');
-
-//peer
-peer.on('open',id => {
-    setTimeout(()=>{
-        socket.emit('join-room',roomid,id);
-    },3000);
-})
-
-// Create Grid to show video
-
-
-socket.on('user-connect',(userid)=>{
-    console.log("Launching peer call");
-    const call = peer.call(userid,MyvideoStream);
-    const remote_video= document.createElement('video');
-    call.on('stream',RemoteVideoStream => {
-        console.log('Launching stream function: '+RemoteVideoStream);
-        addnewvideo_window(remote_video,RemoteVideoStream);
+    function gui_newroom(){
+        return new Promise((resolve,reject) => {
+            document.getElementById("meeting_view").style.display = "block";
+            document.getElementById("welcome_view").style.display = "none";
+            document.getElementById("current_roomid").innerText = roomid;
+            document.getElementById("app_title_nav").style.top = "0px";
+            document.getElementById("app_title").style.color = "white";
+            audio_option=true;
+            video_option=true;
+            // Accessing Camera, Audio and Streaming
+            navigator.mediaDevices.getUserMedia({
+                video:true,
+                audio:true
+            }).then((res)=>{
+                MyvideoStream = res;
+                let newvideo= document.createElement('video');
+                addnewvideo_window(newvideo, MyvideoStream);
+                resolve('success');
+            }).catch(e => {
+                reject('Permission Denied');
+                alert('Permission denied');
+            });
+        });
+    }
+    document.getElementById("create_room").addEventListener("click",()=>{
+        //peer
+        roomid = peer.id;
+        socket.emit('create-room', roomid);
+        gui_newroom();
+        // Answering call peer
+        peer.on('call',call => {
+            call.answer(MyvideoStream);
+            const video = document.createElement("video");
+            call.on('stream', RemoteVideStream => {
+                addnewvideo_window(video,RemoteVideStream)
+            });
+        },(e)=>{
+            console.log('Answer '+e);
+        });
     });
-});
-
-const addnewvideo_window = (element, stream) => {
-    element.srcObject = stream;
-    element.addEventListener('loadedmetadata',() => {
-        element.play();
-        video_grid.append(element);
+    document.getElementById("join_room").addEventListener("click",()=>{
+        roomid = prompt("Enter Room id");
+        if(roomid === null || roomid.length< 15){roomid=""}else{
+            // Change View
+            socket.emit('join-room', roomid);
+        }
     });
-};*/
+    // Socket Error Handler
+    socket.on('error',msg =>{
+       console.log('error called: '+msg);
+       if(msg === "invalid_id"){
+           alert('Room not available or already fill.')
+       }
+    });
+    // Allowed to join
+    socket.on('join-allowed',msg => {
+        console.log('Join Allowed: '+msg);
+        gui_newroom().
+        then(()=>{
+            const call = peer.call(roomid,MyvideoStream);
+            const remote_video= document.createElement('video');
+            call.on('stream',RemoteVideoStream => {
+                console.log('Launching stream function: '+RemoteVideoStream);
+                addnewvideo_window(remote_video,RemoteVideoStream);
+            });
+        }).catch(e => {
+            console.log('Reject '+e);
+        });
+    })
 </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Navigation Media</title>
+    <title>Zoom/ G-Meet Clone</title>
     <script src="js/socket-client.js"></script>
     <script src="js/peer.js"></script>
     <link rel="stylesheet" href="zoom.css">
@@ -20,12 +20,12 @@
         <br><br><br><br><br><br><br><br><br><br><br>
         <div id="two_grid">
             <div id="welcome_desc">
-                <span class="jumbotron">Premium video meetings.<br>
+                <span class="jumbotron">Premium 1 v 1 video meetings.<br>
                 Now free for everyone.</span>
                     <br><br>
                     <span class="jumbotron_desc">
-                    We re-engineered the service we built for secure business<br>
-                    meetings, Google Meet, to make it free and available for all.
+                    We re-engineered the service we built for secure business meetings,<br>
+                    Zoom / Google Meet Clone, to make it free and available for all.
                 </span>
                 <br><br><br>
                 <div id="welcome_room_buttons">
@@ -100,6 +100,7 @@
     let video_grid = document.getElementById('video-grid');
     let video_option = false;
     let audio_option = false;
+    let socket_peerid = null;
     const addnewvideo_window = (element, stream) => {
         element.srcObject = stream;
         element.addEventListener('loadedmetadata',() => {
@@ -163,26 +164,35 @@
     });
     // Socket Error Handler
     socket.on('error',msg =>{
-       console.log('error called: '+msg);
        if(msg === "invalid_id"){
            alert('Room not available or already fill.')
        }
     });
     // Allowed to join
-    socket.on('join-allowed',msg => {
-        console.log('Join Allowed: '+msg);
+    socket.on('join-allowed',room_creater => {
+        socket_peerid = room_creater;
         gui_newroom().
         then(()=>{
             const call = peer.call(roomid,MyvideoStream);
             const remote_video= document.createElement('video');
             call.on('stream',RemoteVideoStream => {
-                console.log('Launching stream function: '+RemoteVideoStream);
                 addnewvideo_window(remote_video,RemoteVideoStream);
             });
         }).catch(e => {
             console.log('Reject '+e);
         });
-    })
+    });
+    // Join user id update
+    socket.on('join-user-id',UserId => {
+       socket_peerid = UserId;
+    });
+    socket.on('user-leave-broadcast',UserId => {
+        if(UserId === socket_peerid){
+            let element = document.getElementById("video-grid");
+            element.removeChild(element.lastChild);
+            alert('Caller just leave the room');
+        }
+    });
 </script>
 </body>
 </html>

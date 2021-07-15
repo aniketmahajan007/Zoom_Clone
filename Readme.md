@@ -3,7 +3,7 @@ https://aniketmahajan007.github.io/Zoom_Clone/frontend/zoom.html
 
 Note: Recommend to use on tablet, laptop, monitor since its currently not responsive for mobile display
 
-# Deployement Intructions on Localhost
+# Deployement Instructions on Localhost
 
 # Setup Backend
 

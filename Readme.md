@@ -10,10 +10,8 @@
 
     Go to frontend directory 
     Run npx serve to start frontend page in localhost:5000 server
-    Go to localhost:5000/zoom.html 
-    Setup Complete
-
-
-#Upcoming Features :
+    Go to localhost:5000/zoom.html 🚀
+ 
+# Upcoming Features :
 
 Room Chat

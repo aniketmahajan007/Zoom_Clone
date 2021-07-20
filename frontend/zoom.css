@@ -101,27 +101,12 @@ nav{
 #msg_box > input{
     color:floralwhite;
     padding:4px;
-    flex:0.9;
     width: 100%;
     background: transparent;
     margin-bottom: 4px;
 }
 #msg_box > input:focus{
     outline: none;
-}
-#msg_box button{
-    font-weight: 600;
-    flex: 0.1;
-    margin-bottom: 4px;
-    background: white;
-    cursor: pointer;
-    transition: transform 200ms ease-in-out;
-}
-#msg_box button:hover{
-    transform: scale(1.14);
-}
-#msg_box button i {
-    color:black
 }
 
 /* Welcome View */
@@ -156,6 +141,18 @@ nav{
 }
 #join_room{
     margin-left: 1em;
+}
+#Chatmsg{
+    height: 80vh;
+    overflow: hidden;
+}
+#Chatmsg ul{
+    list-style-type: none;
+    padding:10px;
+}
+#Chatmsg ul li{
+    word-break: break-all;
+    margin-top:20px;
 }
 @media only screen and (max-width: 960px) {
     #welcome_view #welcome_desc{

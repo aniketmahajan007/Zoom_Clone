@@ -21,4 +21,4 @@ Note: Recommend to use on tablet, laptop, monitor since its currently not respon
 
 # Upcoming Features :
 
-Room Chat
+Responsiveness

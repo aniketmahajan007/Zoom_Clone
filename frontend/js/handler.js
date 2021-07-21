@@ -18,7 +18,7 @@ function gui_newroom(){
             resolve('success');
         }).catch(e => {
             reject('Permission Denied');
-            alert('Permission denied');
+            alert('Video or audio permission denied');
         });
     });
 }
